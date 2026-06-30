@@ -1,0 +1,93 @@
+{
+  "role": "Backend Engineer (Screening Round) - Defense Sector",
+  "total_time_minutes": 30,
+  "intro_script": "Hi, thanks for joining. I'm an AI screening interviewer for this role. This will take about 25-30 minutes. I'll ask about your background, a couple of technical questions based on your resume, and a short set of standard eligibility questions required for roles in the defense sector. Everything here is recorded and reviewed by a human on the hiring team before any decision is made. Ready to start?",
+  "outro_script": "That's all the questions I have. Thanks for your time today — the hiring team will review this and follow up within a few business days. Have a great rest of your day.",
+
+  "sections": [
+    {
+      "section": "introduction",
+      "type": "fixed",
+      "questions": [
+        {
+          "id": "intro_1",
+          "prompt": "To start, could you briefly introduce yourself and walk me through your current role?",
+          "max_probes": 0,
+          "time_budget_minutes": 3,
+          "rubric": {
+            "1": "Very vague, no meaningful detail about current role",
+            "2": "Somewhat vague, limited clarity on responsibilities or scope",
+            "3": "Clear, reasonably specific account of current role",
+            "4": "Strong, detailed explanation with good structure and context",
+            "5": "Exceptional, highly specific and well-organized, clearly conveys scope, impact, and seniority"
+          }
+        }
+      ]
+    },
+    {
+      "section": "experience",
+      "type": "fixed_resume_aware",
+      "questions": [
+        {
+          "id": "exp_1",
+          "prompt": "Looking at your background, what would you say is the most technically challenging project you've worked on, and what was your specific role in it?",
+          "max_probes": 2,
+          "time_budget_minutes": 5,
+          "rubric": {
+            "1": "No real example, or cannot describe any project work",
+            "2": "Very limited detail, unclear personal contribution or technical depth",
+            "3": "Clear description of a real project with reasonable depth on their role",
+            "4": "Strong technical explanation with good detail on decisions, tradeoffs, and ownership",
+            "5": "Exceptional depth: highly specific, clearly distinguishes personal contribution, and discusses tradeoffs, constraints, and alternatives unprompted"
+          },
+          "resume_aware_note": "If the candidate's resume lists a specific notable project, you may reference it by name in a follow-up probe (e.g. 'You mentioned X on your resume — was that the project, or a different one?')."
+        }
+      ]
+    },
+    {
+      "section": "technical_generated",
+      "type": "generated_from_resume",
+      "count": 2,
+      "generation_instructions": "Generate exactly {count} technical screening questions based on the specific skills, tools, and projects listed in this candidate's resume. Each question should require the candidate to explain a real technical decision or tradeoff — not a textbook definition. Prefer questions that probe depth on a specific technology/project actually named in the resume over generic questions. Avoid yes/no questions.",
+      "max_probes": 2,
+      "time_budget_minutes": 6,
+      "rubric": {
+        "1": "Cannot meaningfully discuss the technology/project despite it being on their resume — possible inflation of experience",
+        "2": "Very limited understanding, struggles to explain practical usage or role",
+        "3": "Reasonable working knowledge, can explain how they used it",
+        "4": "Strong understanding with clear discussion of design decisions, tradeoffs, and implementation details",
+        "5": "Deep, specific expertise — discusses tradeoffs, limitations, and alternatives unprompted"
+      }
+    },
+    {
+      "section": "eligibility",
+      "type": "eligibility",
+      "intro_note": "Next, I have a few standard eligibility questions required for this role, since it involves defense-sector work. These are asked of every candidate in the same way, and your answers will be reviewed by the HR and security team separately from your technical evaluation. Please answer honestly — there's no benefit to misrepresenting any of these.",
+      "questions": [
+        {
+          "id": "elig_citizenship",
+          "prompt": "Are you a Singapore citizen?",
+          "disqualifying_answer": "no",
+          "category": "citizenship",
+          "handling_note": "Bona fide requirement for defense-sector roles in Singapore. Flag only — do not auto-reject."
+        },
+        {
+          "id": "elig_drug",
+          "prompt": "Have you ever been convicted of, or are you currently facing any charges related to, a controlled drug offence?",
+          "disqualifying_answer": "yes",
+          "category": "drug_history",
+          "handling_note": "Sensitive personal data under PDPA. Store with restricted access. Flag only."
+        },
+        {
+          "id": "elig_debt",
+          "prompt": "Do you currently have any undischarged bankruptcy or significant unresolved debt that you're aware of?",
+          "disqualifying_answer": "yes",
+          "category": "financial",
+          "handling_note": "Sensitive personal data under PDPA. Store with restricted access. Flag only — financial vulnerability is a clearance risk factor, not an automatic disqualifier; human security team must assess context."
+        }
+      ]
+    }
+  ],
+
+  "disqualifier_check": "Flag in summary (do not auto-reject) if: candidate cannot describe any real project in concrete terms, contradicts their own resume claims, or triggers any eligibility disqualifying_answer."
+}

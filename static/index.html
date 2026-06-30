@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Screening Interview</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 640px; margin: 60px auto; padding: 0 20px; color: #1a1a1a; }
+  h1 { font-size: 1.3rem; }
+  #question { font-size: 1.15rem; margin: 24px 0; padding: 16px; background: #f4f4f5; border-radius: 8px; min-height: 60px; }
+  #status { color: #666; font-size: 0.9rem; margin-bottom: 8px; }
+  button { font-size: 1rem; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; margin-right: 8px; }
+  #recordBtn { background: #dc2626; color: white; }
+  #recordBtn.recording { background: #16a34a; }
+  #startBtn { background: #2563eb; color: white; }
+  #timer { font-weight: 600; }
+  #transcriptLog { margin-top: 30px; font-size: 0.85rem; color: #555; max-height: 200px; overflow-y: auto; border-top: 1px solid #ddd; padding-top: 12px; }
+  .done { background: #ecfdf5; padding: 16px; border-radius: 8px; }
+</style>
+</head>
+<body>
+  <h1>AI Screening Interview</h1>
+  <div id="status">Click start when ready. Make sure your mic is enabled.</div>
+  <div id="uploadRow" style="margin-bottom: 16px;">
+    <label for="resumeFile" style="font-size: 0.9rem; color: #444;">Upload resume (optional, .pdf/.docx/.txt) — used to generate personalized technical questions:</label><br/>
+    <input type="file" id="resumeFile" accept=".pdf,.docx,.txt" style="margin-top: 6px;" />
+  </div>
+  <div id="timer"></div>
+  <div id="question">Press "Start Interview" to begin.</div>
+
+  <button id="startBtn">Start Interview</button>
+  <button id="recordBtn" style="display:none;">🎤 Click to Answer</button>
+
+  <div id="transcriptLog"></div>
+
+<script>
+let sessionId = null;
+let mediaRecorder = null;
+let chunks = [];
+let timerInterval = null;
+
+const statusEl = document.getElementById("status");
+const questionEl = document.getElementById("question");
+const startBtn = document.getElementById("startBtn");
+const recordBtn = document.getElementById("recordBtn");
+const timerEl = document.getElementById("timer");
+const logEl = document.getElementById("transcriptLog");
+
+function speak(text) {
+  return new Promise((resolve) => {
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.rate = 1.0;
+    utter.onend = resolve;
+    utter.onerror = resolve;
+    speechSynthesis.speak(utter);
+  });
+}
+
+function logLine(role, text) {
+  const div = document.createElement("div");
+  div.innerHTML = `<b>${role}:</b> ${text}`;
+  logEl.appendChild(div);
+}
+
+function startTimer(minutesRemaining) {
+  clearInterval(timerInterval);
+  let seconds = Math.round(minutesRemaining * 60);
+  const tick = () => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    timerEl.textContent = `Time remaining: ${m}:${s.toString().padStart(2, "0")}`;
+    if (seconds <= 0) { clearInterval(timerInterval); return; }
+    seconds--;
+  };
+  tick();
+  timerInterval = setInterval(tick, 1000);
+}
+
+startBtn.addEventListener("click", async () => {
+  startBtn.disabled = true;
+  statusEl.textContent = "Starting...";
+
+  const formData = new FormData();
+  const fileInput = document.getElementById("resumeFile");
+  if (fileInput.files.length > 0) {
+    formData.append("resume", fileInput.files[0]);
+  }
+
+  const res = await fetch("/session/start", { method: "POST", body: formData });
+  const data = await res.json();
+  sessionId = data.session_id;
+  startTimer(data.time_remaining_minutes);
+
+  logLine("Interviewer", data.intro);
+  await speak(data.intro);
+
+  if (data.section_intro) {
+    logLine("Interviewer", data.section_intro);
+    await speak(data.section_intro);
+  }
+
+  questionEl.textContent = data.question;
+  logLine("Interviewer", data.question);
+  await speak(data.question);
+
+  statusEl.textContent = "Click the button when you're ready to answer.";
+  document.getElementById("uploadRow").style.display = "none";
+  startBtn.style.display = "none";
+  recordBtn.style.display = "inline-block";
+});
+
+async function setupRecorder() {
+  if (location.protocol !== "https:" && location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+    statusEl.textContent = "Mic access requires http://localhost or https — open this page via localhost, not an IP address.";
+    throw new Error("Insecure context for getUserMedia");
+  }
+
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch (err) {
+    statusEl.textContent = "Mic permission was blocked or no mic was found: " + err.message;
+    throw err;
+  }
+
+  const preferredTypes = ["audio/webm;codecs=opus", "audio/webm", "audio/ogg;codecs=opus", "audio/mp4"];
+  const supportedType = preferredTypes.find((t) => MediaRecorder.isTypeSupported(t));
+  if (!supportedType) {
+    statusEl.textContent = "No supported audio recording format found in this browser.";
+    throw new Error("No supported mimeType for MediaRecorder");
+  }
+
+  mediaRecorder = new MediaRecorder(stream, { mimeType: supportedType });
+  mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
+}
+
+let isRecording = false;
+
+recordBtn.addEventListener("click", async () => {
+  if (!isRecording) {
+    // Start recording
+    chunks = [];
+    recordBtn.disabled = true;
+    try {
+      if (!mediaRecorder) {
+        await setupRecorder();
+      }
+      mediaRecorder.start();
+      isRecording = true;
+      recordBtn.classList.add("recording");
+      recordBtn.textContent = "⏹ Click to Stop & Submit";
+      statusEl.textContent = "Recording... click again when you're done answering.";
+    } catch (err) {
+      console.error("Failed to start recording:", err);
+      // statusEl already set inside setupRecorder with the specific reason
+    } finally {
+      recordBtn.disabled = false;
+    }
+    return;
+  }
+
+  // Stop recording and submit
+  isRecording = false;
+  recordBtn.classList.remove("recording");
+  recordBtn.textContent = "Processing...";
+  recordBtn.disabled = true;
+
+  mediaRecorder.onstop = async () => {
+    const blob = new Blob(chunks, { type: "audio/webm" });
+    const formData = new FormData();
+    formData.append("audio", blob, "answer.webm");
+
+    statusEl.textContent = "Transcribing and thinking...";
+    const res = await fetch(`/session/${sessionId}/answer`, { method: "POST", body: formData });
+
+    if (!res.ok) {
+      let detail = `Server error (${res.status})`;
+      try {
+        const errJson = await res.json();
+        detail = errJson.detail || detail;
+      } catch {
+        // response wasn't JSON (e.g. a raw 500 page) — keep the generic message
+      }
+      statusEl.textContent = "Something went wrong: " + detail;
+      recordBtn.disabled = false;
+      recordBtn.textContent = "🎤 Click to Answer";
+      isRecording = false;
+      return;
+    }
+
+    const data = await res.json();
+
+    if (data.type === "finished") {
+      questionEl.innerHTML = `<div class="done">${data.outro}</div>`;
+      logLine("Interviewer", data.outro);
+      await speak(data.outro);
+      statusEl.textContent = "Interview complete. Thank you!";
+      recordBtn.style.display = "none";
+      clearInterval(timerInterval);
+      timerEl.textContent = "Done";
+    } else {
+      if (data.section_intro) {
+        logLine("Interviewer", data.section_intro);
+        await speak(data.section_intro);
+      }
+      questionEl.textContent = data.question;
+      logLine("Interviewer", data.question);
+      startTimer(data.time_remaining_minutes);
+      await speak(data.question);
+      statusEl.textContent = "Click the button when you're ready to answer.";
+      recordBtn.disabled = false;
+      recordBtn.textContent = "🎤 Click to Answer";
+    }
+  };
+  mediaRecorder.stop();
+});
+</script>
+</body>
+</html>

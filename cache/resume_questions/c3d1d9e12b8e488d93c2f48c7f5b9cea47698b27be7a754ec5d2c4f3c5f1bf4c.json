@@ -1,0 +1,10 @@
+{
+  "questions": [
+    {
+      "prompt": "You mentioned working on a full-stack application using PHP for the Woofya project. Can you walk me through your thought process when deciding to use PHP as the backend language, considering its potential security implications and performance characteristics?"
+    },
+    {
+      "prompt": "In your Personal Portfolio Website, you used Next.js with Tailwind CSS. How did you approach optimizing the website's SEO performance, particularly in terms of page loading times and content indexing? What trade-offs did you consider when choosing a static site generator like Vercel over a traditional dynamic web application?"
+    }
+  ]
+}

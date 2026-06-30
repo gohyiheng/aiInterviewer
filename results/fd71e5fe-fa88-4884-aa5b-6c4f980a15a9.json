@@ -1,0 +1,221 @@
+{
+  "session_id": "fd71e5fe-fa88-4884-aa5b-6c4f980a15a9",
+  "role": "Backend Engineer (Screening Round) - Defense Sector",
+  "duration_minutes": 13.6,
+  "average_technical_score": 2.75,
+  "per_question": [
+    {
+      "question_id": "intro_1",
+      "section": "introduction",
+      "prompt": "To start, could you briefly introduce yourself and walk me through your current role?",
+      "score": 3,
+      "evidence": "Hien described his final year project in detail, mentioning specific tasks such as designing APIs and managing a database.",
+      "probes_used": 0
+    },
+    {
+      "question_id": "exp_1",
+      "section": "experience",
+      "prompt": "Looking at your background, what would you say is the most technically challenging project you've worked on, and what was your specific role in it?",
+      "score": 3,
+      "evidence": "The candidate described a real project, a clinic management system, and provided some depth on their role in designing and implementing back-end APIs using MVC architecture.",
+      "probes_used": 2
+    },
+    {
+      "question_id": "gen_1",
+      "section": "technical_generated",
+      "prompt": "You mentioned working on a full-stack application using PHP for the Woofya project. Can you walk me through your thought process when deciding to use PHP as the backend language, considering its potential security implications and performance characteristics?",
+      "score": 4,
+      "evidence": "The candidate discusses tradeoffs, limitations, or alternatives unprompted, mentioning considerations for security (circular coding practices) and performance (caching, optimizing database queries), but does not explicitly mention any specific PHP features beyond its integration with relational databases.",
+      "probes_used": 2
+    },
+    {
+      "question_id": "gen_2",
+      "section": "technical_generated",
+      "prompt": "In your Personal Portfolio Website, you used Next.js with Tailwind CSS. How did you approach optimizing the website's SEO performance, particularly in terms of page loading times and content indexing? What trade-offs did you consider when choosing a static site generator like Vercel over a traditional dynamic web application?",
+      "score": 1,
+      "evidence": "The candidate was unable to discuss their Personal Portfolio Website, despite it being on their resume.",
+      "probes_used": 2
+    }
+  ],
+  "low_score_flags": [
+    {
+      "question_id": "gen_2",
+      "section": "technical_generated",
+      "evidence": "The candidate was unable to discuss their Personal Portfolio Website, despite it being on their resume."
+    }
+  ],
+  "eligibility": {
+    "note": "Eligibility answers are CLASSIFIED ONLY, not adjudicated. A human on the security/HR team must make the actual eligibility determination. Sensitive fields (drug history, financial status) should be access-restricted per PDPA.",
+    "results": [
+      {
+        "question_id": "elig_citizenship",
+        "prompt": "Are you a Singapore citizen?",
+        "classified_answer": "yes",
+        "evidence": "Directly stated 'Yes'",
+        "flagged_for_human_review": false
+      },
+      {
+        "question_id": "elig_drug",
+        "prompt": "Have you ever been convicted of, or are you currently facing any charges related to, a controlled drug offence?",
+        "classified_answer": "no",
+        "evidence": "They said 'No'",
+        "flagged_for_human_review": false
+      },
+      {
+        "question_id": "elig_debt",
+        "prompt": "Do you currently have any undischarged bankruptcy or significant unresolved debt that you're aware of?",
+        "classified_answer": "no",
+        "evidence": "said no, without hesitation or qualification",
+        "flagged_for_human_review": false
+      }
+    ]
+  },
+  "note": "This report contains no hire/no-hire or eligibility recommendation. For human review only.",
+  "transcript": [
+    {
+      "role": "interviewer",
+      "text": "Hi, thanks for joining. I'm an AI screening interviewer for this role. This will take about 25-30 minutes. I'll ask about your background, a couple of technical questions based on your resume, and a short set of standard eligibility questions required for roles in the defense sector. Everything here is recorded and reviewed by a human on the hiring team before any decision is made. Ready to start?",
+      "ts": 1782724182.0054605
+    },
+    {
+      "role": "interviewer",
+      "text": "To start, could you briefly introduce yourself and walk me through your current role?",
+      "ts": 1782724182.0054605
+    },
+    {
+      "role": "candidate",
+      "text": "Hi, my name is Hien. I've graduated with a degree in computer science and trial in university after I've developed a strong interest in backends of engineering. During my studies, I completed several projects involving Python, Java, SQL, and Web Dev. My final year project involved building a full-stack application where I designed various APIs, managed database, and implemented authentication. I also completed an internship where I gained experience working in the Java team, writing production quality code, fixing bugs, and participating in code reviews. I'm particularly interested in back-end development because I enjoy solving technical problems, designing scalable systems, and building new technologies. I'm excited about this opportunity because it will allow me to continue developing more technical skills while contributing to real-world engineering projects.",
+      "ts": 1782724277.04121
+    },
+    {
+      "role": "interviewer",
+      "text": "Looking at your background, what would you say is the most technically challenging project you've worked on, and what was your specific role in it?",
+      "ts": 1782724286.0180395
+    },
+    {
+      "role": "candidate",
+      "text": "I would say that the most technically challenging project I worked on was developing a full-time set. Clinics management is the best part of this project. The project was designed to help that clinics manage appointment, patient records, and day-to-day operations. My primary responsibility was on the back-end of designing and implementing breast APIs, integrating them with different hand-advancing architecture, which is the application modular and maintainable. I was also collaborative with teammates using kit to give up or manage our true-of-product backlog as from students. One of the most challenging aspects was the preventing part execution and RBIC. We had to ensure that different users such as families and clinics had different permissions for keeping the code-based claim as scalable. I also helped integrate in-app actions to a common part of our testing and development workflow, which reduced manual work and helped us cache issues earlier. Throughout the project, I had to think about technical trade-offs. For example, we wanted to keep the back-end flexible enough to support future features while avoiding unnecessary complexity for the initial release. We achieved this by designing reusable APIs and separating business projects from presentations achieved through the MDC architecture. Before that, project-sharing termed my back-end development skills improved because of API design and conceptual application development and gave me valuable experience for the HR team to develop a complete software solution.",
+      "ts": 1782724422.5298998
+    },
+    {
+      "role": "interviewer",
+      "text": "Can you clarify what you mean by 'hand-advancing architecture'?",
+      "ts": 1782724428.2930205
+    },
+    {
+      "role": "candidate",
+      "text": "Well, I meant NTC architecture.",
+      "ts": 1782724442.7146528
+    },
+    {
+      "role": "interviewer",
+      "text": "Can you elaborate on what you mean by 'NTC architecture', specifically in the context of a project you've worked on?",
+      "ts": 1782724446.7775428
+    },
+    {
+      "role": "candidate",
+      "text": "Oh, I think you meant MVC, but it's still a model view controller architecture. In our third clinic management system, we used the MVC pattern to separate the application into three million. The model represented the application data and business entity, such as patient appointments and so on. We also had that in directions with the database. The view is the front end that the users interacted with. It displayed important information, such as schedules, appointment, and patient records, or sending requests to the back end when users perform actions. The controller acted as the interim medium. It receives HTTP requests from the front end. The data input and called the appropriate business logic or service to return the response. In my role, I primarily worked on the back end, the method-based API employs in the controller layer, develop the business logic in the service layer, and take return requests with the database. For example, when a receptionist creates a new appointment at the front end, they send a request to the controller for the intent and request a request to the service leader. We check for scheduling conflicts and business room. If everything was valid, the service saved the appointment through the model and return the success response to the front end. Using MVC allowed our team to work in parallel with front end and back end development, progressing independently while also making the application more modular and easier to maintain as new features were added.",
+      "ts": 1782724570.3589485
+    },
+    {
+      "role": "interviewer",
+      "text": "You mentioned working on a full-stack application using PHP for the Woofya project. Can you walk me through your thought process when deciding to use PHP as the backend language, considering its potential security implications and performance characteristics?",
+      "ts": 1782724574.64919
+    },
+    {
+      "role": "candidate",
+      "text": "For the Wofia project, PHP was primarily driven by the project requirements and text tag that our team has been asked to use. We allowed us to build a full stack-back application quickly while giving everyone on the team a common pack and language to work with. From my perspective, PHP was used because it integrates well with relational database and makes it straightforward to build server-side functionality such as user authentication, profile management, and CRUD operations. Since our applications mainly manage user accounts, pack profiles, and QR code sharing, PHP provided all the functionality we needed without adding unnecessary complexity. We also aware of security considerations, so rather than relying solely on the language itself, we focus on circular coding practices such as validation of user input, avoiding trusting client-side data, using parameterized SQL queries to help prevent SQL injections, and also proper authentication and session management. We also ensured that sensitive operation required authenticated users. In terms of performance, our application was expected to handle such geotraffit, so PHP was more than sufficient for the project. The application needed to support a large number of users in the future. We considered improvements such as caching, optimizing database queries, and potentially a more scalable architecture of framework depending on the requirements. Overall, I think technology choices should be driven by project requirements. For Woofia, PHP allowed us to develop and deliver the required features efficiently for following good software engineering and security practices.",
+      "ts": 1782724708.2936199
+    },
+    {
+      "role": "interviewer",
+      "text": "Can you give an example of how you implemented parameterized SQL queries in your Woofya project?",
+      "ts": 1782724712.6116922
+    },
+    {
+      "role": "candidate",
+      "text": "Yeah, so one example was we implemented the user profile update features where users could edit information such as the name of the dog profile instead of building SQL statement by Conquerating user input directly into the query We parameterized query for example rather than writing something like update users set name equals to colon dollar sign Name where id equals to dollar sign id which is found over to SQL injection. We prepared the SQL statement first Then bound the user provider values as parameters before executing So because of this SQL statements and the user input I had that separately That I made treats the value purely as data instead of executing double SQL This significantly reduced the risk of SQL injection attacks Beyond parameterized queries we validated user input check that only user was authenticated before allowing profile updates and only users Allow to modify their own records or their pet profile records Combining these practices have improved the overall security of the application",
+      "ts": 1782724804.3006241
+    },
+    {
+      "role": "interviewer",
+      "text": "Can you elaborate on how you validated user input, specifically what methods or libraries did you use?",
+      "ts": 1782724807.15718
+    },
+    {
+      "role": "candidate",
+      "text": "We use Firebase as part of our backend services so lots of validation was performed before data was returned to the database. So we validated user input using JavaScript and for authentication we derived our Firebase authentication and on the backend we also configured Firebase security rules to ensure that only users could be able to modify their own data.",
+      "ts": 1782724852.0598726
+    },
+    {
+      "role": "interviewer",
+      "text": "In your Personal Portfolio Website, you used Next.js with Tailwind CSS. How did you approach optimizing the website's SEO performance, particularly in terms of page loading times and content indexing? What trade-offs did you consider when choosing a static site generator like Vercel over a traditional dynamic web application?",
+      "ts": 1782724857.192805
+    },
+    {
+      "role": "candidate",
+      "text": "No",
+      "ts": 1782724902.867
+    },
+    {
+      "role": "interviewer",
+      "text": "Can you give an example of how you applied SEO best practices to your Next.js project?",
+      "ts": 1782724905.5635726
+    },
+    {
+      "role": "candidate",
+      "text": "No moves to the next part",
+      "ts": 1782724922.959579
+    },
+    {
+      "role": "interviewer",
+      "text": "Can you walk me through any specific SEO optimization techniques you implemented?",
+      "ts": 1782724925.4818635
+    },
+    {
+      "role": "candidate",
+      "text": "Now we'll move to the next part of the example.",
+      "ts": 1782724939.300577
+    },
+    {
+      "role": "interviewer",
+      "text": "Next, I have a few standard eligibility questions required for this role, since it involves defense-sector work. These are asked of every candidate in the same way, and your answers will be reviewed by the HR and security team separately from your technical evaluation. Please answer honestly \u00e2\u20ac\u201d there's no benefit to misrepresenting any of these.",
+      "ts": 1782724942.5855577
+    },
+    {
+      "role": "interviewer",
+      "text": "Are you a Singapore citizen?",
+      "ts": 1782724942.5855577
+    },
+    {
+      "role": "candidate",
+      "text": "Yes",
+      "ts": 1782724971.215761
+    },
+    {
+      "role": "interviewer",
+      "text": "Have you ever been convicted of, or are you currently facing any charges related to, a controlled drug offence?",
+      "ts": 1782724973.4553013
+    },
+    {
+      "role": "candidate",
+      "text": "No",
+      "ts": 1782724984.9247663
+    },
+    {
+      "role": "interviewer",
+      "text": "Do you currently have any undischarged bankruptcy or significant unresolved debt that you're aware of?",
+      "ts": 1782724986.9160738
+    },
+    {
+      "role": "candidate",
+      "text": "No",
+      "ts": 1782724997.2315319
+    },
+    {
+      "role": "interviewer",
+      "text": "That's all the questions I have. Thanks for your time today \u00e2\u20ac\u201d the hiring team will review this and follow up within a few business days. Have a great rest of your day.",
+      "ts": 1782724999.4049723
+    }
+  ]
+}
